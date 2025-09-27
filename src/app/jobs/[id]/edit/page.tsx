@@ -86,6 +86,7 @@ export default function EditJobPage() {
             ...values,
             schedule: values.schedule.map(s => s.value),
             requirements: values.requirements.map(r => r.value),
+            creatorId: job.creatorId,
         };
       await updateJob(updatedJob);
       toast({
