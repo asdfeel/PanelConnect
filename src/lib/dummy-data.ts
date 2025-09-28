@@ -8,7 +8,7 @@ export type Job = {
   schedule: string[];
   type: string;
   status: '모집중' | '마감임박';
-  description: string;
+  description?: string;
   requirements: string[];
   isHot: boolean;
   applyLink?: string;

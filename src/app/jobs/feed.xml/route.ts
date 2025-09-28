@@ -28,11 +28,11 @@ export async function GET() {
         <p><strong>참석비:</strong> ${job.participationFee}</p>
         <p><strong>유형:</strong> ${job.type}</p>
         <br/>
-        <p>${job.description.replace(/\n/g, '<br/>')}</p>
+        ${job.description ? `<p>${job.description.replace(/\n/g, '<br/>')}</p>` : ''}
       `,
       url: jobUrl,
       guid: job.id,
-      date: new Date(), // 실제로는 job.createdAt 같은 필드를 사용해야 합니다.
+      date: new Date(), // 실제로는 job.createdAt 같은 필드를 사용해야 합니다。
       author: job.company,
     });
   });
