@@ -2,9 +2,8 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+// 기본 Firebase 프로젝트 설정
+const primaryFirebaseConfig = {
   apiKey: "AIzaSyCI246Ppdz4ZDh-ObZz85OWu5ha4KjSE2k",
   authDomain: "panel-connect-app.firebaseapp.com",
   projectId: "panel-connect-app",
@@ -14,15 +13,37 @@ const firebaseConfig = {
   measurementId: "G-MP7Z0NZZ0P"
 };
 
-// Initialize Firebase
-let firebaseApp;
-if (!getApps().length) {
-  firebaseApp = initializeApp(firebaseConfig);
+// 여기에 두 번째 Firebase 프로젝트의 설정을 추가하세요.
+const secondaryFirebaseConfig = {
+  apiKey: "AIzaSyC6TfQQUZVquFHK76CNwNRFJCTc9bvUoNg",
+  authDomain: "studio-2849154483-c5aae.firebaseapp.com",
+  projectId: "studio-2849154483-c5aae",
+  storageBucket: "studio-2849154483-c5aae.firebasestorage.app",
+  messagingSenderId: "405891973902",
+  appId: "G-4ZDSRZTRT1"
+};
+
+
+// Firebase 앱 초기화
+// 기본 앱 초기화 (이름을 지정하여 명시적으로 관리)
+let primaryApp;
+if (!getApps().some(app => app.name === '[DEFAULT]')) {
+  primaryApp = initializeApp(primaryFirebaseConfig);
 } else {
-  firebaseApp = getApp();
+  primaryApp = getApp();
 }
 
-const db = getFirestore(firebaseApp);
-const auth = getAuth(firebaseApp);
+// 두 번째 앱 초기화
+let secondaryApp;
+if (!getApps().some(app => app.name === 'secondary')) {
+  secondaryApp = initializeApp(secondaryFirebaseConfig, 'secondary');
+} else {
+  secondaryApp = getApp('secondary');
+}
 
-export { firebaseApp, db, auth };
+
+const db = getFirestore(primaryApp);
+const auth = getAuth(primaryApp);
+const secondaryDb = getFirestore(secondaryApp);
+
+export { db, auth, secondaryDb };

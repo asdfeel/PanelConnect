@@ -10,6 +10,8 @@ import { categories } from '@/lib/dummy-data';
 import type { Job } from '@/lib/dummy-data';
 import { Search, MessagesSquare, FileText, ClipboardCheck, Beaker, Users, Mic, Building, UserPlus, Home, BookText } from 'lucide-react';
 import { useJobStore } from '@/context/job-context';
+import { collection, getDocs } from 'firebase/firestore';
+import { secondaryDb } from '@/lib/firebase';
 
 const categoryIcons = {
     '좌담회': MessagesSquare,
@@ -30,6 +32,7 @@ function JobsPageContent() {
     const [searchText, setSearchText] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+    const [secondaryJobs, setSecondaryJobs] = useState<Job[]>([]);
 
     useEffect(() => {
         const jobId = searchParams.get('jobId');
@@ -40,6 +43,20 @@ function JobsPageContent() {
             }
         }
     }, [searchParams, jobs]);
+
+    useEffect(() => {
+        const fetchDataFromSecondaryDB = async () => {
+          try {
+            const querySnapshot = await getDocs(collection(secondaryDb, 'jobs'));
+            const jobsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Job[];
+            setSecondaryJobs(jobsData);
+          } catch (error) {
+            console.error("Error fetching jobs from secondary database: ", error);
+          }
+        };
+    
+        fetchDataFromSecondaryDB();
+      }, []);
 
 
     const filteredJobs = jobs.filter(job => {
@@ -108,6 +125,21 @@ function JobsPageContent() {
                 ) : (
                     <div className="text-center py-16 text-muted-foreground bg-card rounded-lg">
                         <p>검색 결과가 없습니다.</p>
+                    </div>
+                )}
+            </div>
+
+            <div>
+                <h2 className="text-2xl font-bold font-headline mb-4">다른 프로젝트 알바 정보</h2>
+                {secondaryJobs.length > 0 ? (
+                    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {secondaryJobs.map(job => (
+                        <JobCard key={job.id} job={job} onSelectJob={() => setSelectedJob(job)} />
+                    ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-16 text-muted-foreground bg-card rounded-lg">
+                    <p>다른 프로젝트에서 데이터를 불러오는 중이거나 데이터가 없습니다.</p>
                     </div>
                 )}
             </div>
