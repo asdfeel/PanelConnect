@@ -78,5 +78,6 @@ export const categories = [
     { name: '인터뷰', icon: 'Mic' },
     { name: '단기 내근알바', icon: 'Building' },
     { name: '유치조사', icon: 'UserPlus' },
-    { name: '가정방문조사', icon: 'Home' }
+    { name: '가정방문조사', icon: 'Home' },
+    { name: '다이어리 작성', icon: 'BookText' }
 ] as const;
