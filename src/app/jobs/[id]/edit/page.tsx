@@ -235,7 +235,7 @@ export default function EditJobPage() {
                 
                 <FormField control={form.control} name="description" render={({ field }) => (
                     <FormItem>
-                        <FormLabel>상세 내용</FormLabel>
+                        <FormLabel>선택사항 입력</FormLabel>
                         <FormControl><Textarea placeholder="채용 공고에 대한 상세한 내용을 입력하세요." rows={5} {...field} /></FormControl>
                         <FormMessage />
                     </FormItem>
