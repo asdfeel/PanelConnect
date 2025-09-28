@@ -28,7 +28,7 @@ const formSchema = z.object({
   schedule: z.array(z.object({ value: z.string() })).min(1, '일정은 최소 1개 이상이어야 합니다.'),
   type: z.string().min(1, '유형을 선택해주세요.'),
   status: z.enum(['모집중', '마감임박']),
-  description: z.string().min(1, '상세 내용을 입력해주세요.'),
+  description: z.string().optional(),
   requirements: z.array(z.object({ value: z.string() })).min(1, '대상 조건은 최소 1개 이상이어야 합니다.'),
   isHot: z.boolean(),
   applyLink: z.string().url('유효한 URL을 입력해주세요.').optional().or(z.literal('')),
@@ -235,7 +235,7 @@ export default function EditJobPage() {
                 
                 <FormField control={form.control} name="description" render={({ field }) => (
                     <FormItem>
-                        <FormLabel>선택사항 입력</FormLabel>
+                        <FormLabel>상세 내용(선택)</FormLabel>
                         <FormControl><Textarea placeholder="채용 공고에 대한 상세한 내용을 입력하세요." rows={5} {...field} /></FormControl>
                         <FormMessage />
                     </FormItem>
