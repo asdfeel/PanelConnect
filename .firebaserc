@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "panel-connect-app"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
