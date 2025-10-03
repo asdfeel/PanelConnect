@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '수다 떨면서 돈 버는 알바 - 패널커넥트',
     description: '패널커넥트(PanelConnect)에서 최신 좌담회, 설문조사, 제품 테스터 등 다양한 리서치 참여 기회를 찾아보세요.',
+    url: 'https://albaconnect.co.kr',
     images: [
       {
         url: 'https://placehold.co/1200x630/E2E8F0/1E293B.png?text=PanelConnect',
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
       },
     ],
     type: 'website',
+    siteName: '패널커넥트',
   },
    twitter: {
     card: 'summary_large_image',
