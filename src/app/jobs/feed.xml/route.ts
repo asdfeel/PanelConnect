@@ -32,7 +32,7 @@ export async function GET() {
       `,
       url: jobUrl,
       guid: job.id,
-      date: new Date(), // 실제로는 job.createdAt 같은 필드를 사용해야 합니다。
+      date: feed.options.pubDate, // 실제로는 job.createdAt 같은 필드를 사용해야 합니다.
       author: job.company,
     });
   });
