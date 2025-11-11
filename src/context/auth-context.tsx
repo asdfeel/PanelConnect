@@ -89,16 +89,41 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
+    if (!auth) {
+      console.error('Firebase Auth not initialized.');
+      toast({
+        variant: 'destructive',
+        title: 'Authentication Error',
+        description: 'Could not connect to authentication service.',
+      });
+      return;
+    }
     await signInWithEmailAndPassword(auth, email, password);
     router.push('/jobs');
   };
 
   const logout = async () => {
+    if (!auth) {
+      console.error('Firebase Auth not initialized.');
+      // Even if auth is not available, we should try to clear the local state and redirect.
+      setUser(null);
+      router.push('/login');
+      return;
+    }
     await signOut(auth);
     router.push('/login');
   };
 
   const signup = async (name: string, email: string, password: string) => {
+    if (!auth) {
+      console.error('Firebase Auth not initialized.');
+      toast({
+        variant: 'destructive',
+        title: 'Authentication Error',
+        description: 'Could not connect to authentication service.',
+      });
+      return;
+    }
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const firebaseUser = userCredential.user;
 
