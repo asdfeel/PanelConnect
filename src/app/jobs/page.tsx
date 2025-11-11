@@ -7,7 +7,7 @@ import JobCard from '@/components/job-card';
 import JobDetailSheet from '@/components/job-detail-sheet';
 import { categories } from '@/lib/dummy-data';
 import type { Job } from '@/lib/dummy-data';
-import { Search, MessagesSquare, FileText, ClipboardCheck, Beaker, Users, Mic, Building, UserPlus, Home, BookText } from 'lucide-react';
+import { Search, MessagesSquare, FileText, ClipboardCheck, Beaker, Users, Mic, Building, UserPlus, Home, BookText, Film, Briefcase, Monitor } from 'lucide-react';
 import { useJobStore } from '@/context/job-context';
 
 const categoryIcons = {
@@ -21,6 +21,10 @@ const categoryIcons = {
     '유치조사': UserPlus,
     '가정방문조사': Home,
     '다이어리 작성': BookText,
+    '시사회': Film,
+    '워크샵': Briefcase,
+    '모니터링': Monitor,
+    '체험단': Users,
 };
 
 function JobsPageContent() {
