@@ -67,6 +67,15 @@ export default function FormBuilderPage() {
   const onSubmit = async (values: z.infer<typeof formBuilderSchema>) => {
     setIsSubmitting(true);
     try {
+      if (!db) {
+        toast({
+          variant: 'destructive',
+          title: 'Firestore 오류',
+          description: '데이터베이스 연결에 문제가 발생했습니다. 잠시 후 다시 시도해주세요.',
+        });
+        setIsSubmitting(false);
+        return;
+      }
       await addDoc(collection(db, 'forms'), {
         ...values,
         createdAt: new Date(),
