@@ -46,6 +46,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
+        if (!db) {
+          console.error('Firestore not initialized - skipping user document fetch.');
+          setIsLoading(false); // Ensure loading state is reset
+          return;
+        }
         const userDocRef = doc(db, 'users', firebaseUser.uid);
         const userDoc = await getDoc(userDocRef);
         
@@ -66,6 +71,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             email: firebaseUser.email || '',
             isAdmin: firebaseUser.email === ADMIN_EMAIL,
           };
+          if (!db) {
+            console.error('Firestore not initialized - skipping user document creation.');
+            setIsLoading(false);
+            return;
+          }
           await setDoc(userDocRef, { ...newUser, appliedJobs: [] });
           setUser(newUser);
         }
@@ -101,6 +111,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isAdmin: email === ADMIN_EMAIL,
     };
     
+    if (!db) {
+      console.error('Firestore not initialized - skipping user document creation during signup.');
+      throw new Error('Firestore not initialized'); // Or handle more gracefully
+    }
     await setDoc(doc(db, "users", firebaseUser.uid), {
       ...newUser,
       appliedJobs: [],
@@ -114,6 +128,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (auth.currentUser) {
       if (name !== auth.currentUser.displayName) {
         await updateProfile(auth.currentUser, { displayName: name });
+        if (!db) {
+          console.error('Firestore not initialized - skipping user document update.');
+          return;
+        }
         const userRef = doc(db, "users", auth.currentUser.uid);
         await setDoc(userRef, { name }, { merge: true });
         setUser(prev => prev ? { ...prev, name } : null);
