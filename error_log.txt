@@ -1,0 +1,35 @@
+remote: error: GH013: Repository rule violations found for refs/heads/main.        
+remote: 
+remote: - GITHUB PUSH PROTECTION        
+remote:   —————————————————————————————————————————        
+remote:     Resolve the following violations before pushing again        
+remote: 
+remote:     - Push cannot contain secrets        
+remote: 
+remote:             
+remote:      (?) Learn how to resolve a blocked push        
+remote:      https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-from-the-command-line#resolving-a-blocked-push        
+remote:             
+remote:             
+remote:       —— GitHub Personal Access Token ——————————————————————        
+remote:        locations:        
+remote:          - commit: 4d27bf805fe7c53d7ae57d473dd1561c332de686        
+remote:            path: config/mcp.json:4        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/asdfeel/PanelConnect/security/secret-scanning/unblock-secret/3IXHuR4jwJnWpJpfc1o6JZhtB3u        
+remote:             
+remote:             
+remote:       —— GitHub Personal Access Token ——————————————————————        
+remote:        locations:        
+remote:          - commit: 002a70f2ea0398c06cd8da018dcb3f2970491337        
+remote:            path: config/mcp.json:4        
+remote:             
+remote:        (?) To push, remove secret from commit(s) or follow this URL to allow the secret.        
+remote:        https://github.com/asdfeel/PanelConnect/security/secret-scanning/unblock-secret/3IXHuJqF2kS8Qak2Eo5HY4xWgl3        
+remote:             
+remote: 
+remote: 
+To https://github.com/asdfeel/PanelConnect.git
+ ! [remote rejected]   main -> main (push declined due to repository rule violations)
+error: failed to push some refs to 'https://github.com/asdfeel/PanelConnect.git'

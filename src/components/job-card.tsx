@@ -14,7 +14,7 @@ interface JobCardProps {
 }
 
 export default function JobCard({ job, onSelectJob }: JobCardProps) {
-    
+
     return (
         <Card className="flex flex-col h-full cursor-pointer hover:shadow-xl transition-shadow duration-300 rounded-xl overflow-hidden" onClick={() => onSelectJob(job)}>
             <CardHeader className="pb-4">
@@ -24,7 +24,7 @@ export default function JobCard({ job, onSelectJob }: JobCardProps) {
                 <div className="flex items-center flex-wrap gap-2 text-sm text-muted-foreground pt-1">
                     <span>{job.company}</span>
                     {job.isHot && <Badge variant="destructive" className="bg-red-500 text-white">HOT</Badge>}
-                    <Badge variant={job.status === '마감임박' ? 'destructive' : 'secondary'} className={cn('font-normal', job.status === '마감임박' ? '' : 'bg-primary/20 text-primary hover:bg-primary/30')}>{job.status}</Badge>
+                    <Badge variant={job.status === '마감' ? 'destructive' : 'secondary'} className={cn('font-normal', job.status === '마감' ? '' : 'bg-primary/20 text-primary hover:bg-primary/30')}>{job.status}</Badge>
                 </div>
             </CardHeader>
             <CardContent className="flex-grow space-y-3 text-sm">
